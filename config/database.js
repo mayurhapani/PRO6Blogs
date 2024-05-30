@@ -1,15 +1,10 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb+srv://hapanimayur:Love1224@cluster0.iyurgqh.mongodb.net/PRO6Blog");
-
-const db = mongoose.connection;
-
-db.on("connected", (err) => {
-  if (err) {
-    console.log(err);
-    return false;
-  }
+const db = async () => {
+  await mongoose.connect(
+    "mongodb+srv://hapanimayur:Love1224@cluster0.iyurgqh.mongodb.net/PRO6Blog"
+  );
   console.log("Database Connected Successfully");
-});
+};
 
 module.exports = db;
