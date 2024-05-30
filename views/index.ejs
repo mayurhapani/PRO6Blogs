@@ -9,12 +9,13 @@
   <body>
     <%- include('./partials/header') %>
 
-    <header class="flex justify-end">
-     
-    </header>
+    <header class="flex justify-end"></header>
 
     <div class="bg-zinc-900 min-h-screen w-full p-10">
-      <h2 class="text-white text-4xl mb-10 font-bold">Hello,</h2>
+      <div class="flex justify-start items-center mb-10">
+        <img class="inline-block h-20 w-20 rounded-full" src="<%= user.image %> " alt="image" />
+        <h2 class="text-white text-4xl font-bold ms-10">Hello, <%= user.name %> !</h2>
+      </div>
 
       <form action="/post" method="post">
         <textarea

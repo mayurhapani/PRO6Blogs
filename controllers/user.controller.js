@@ -1,7 +1,8 @@
 const userModel = require("../models/user.model");
 
 const myBlogs = async (req, res) => {
-  res.render("index");
+  const user = req.user;
+  res.render("index", { user });
 };
 
 const addUser = async (req, res) => {
@@ -11,12 +12,13 @@ const addUser = async (req, res) => {
 const addUserPage = async (req, res) => {
   try {
     const { name, username, email, password } = req.body;
+    const image = req.file.path;
 
     const user = await userModel.findOne({ email });
     if (user)
       return res.status(400).send("User already exist! <br/> Please use other email id......");
 
-    await userModel.create({ name, username, email, password });
+    await userModel.create({ name, username, email, password, image });
     res.redirect("/login");
   } catch (err) {
     console.log(err);

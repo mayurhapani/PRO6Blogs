@@ -4,34 +4,22 @@ port = 8001;
 
 const db = require("./config/database");
 const { router } = require("./routers/user.router");
+const path = require("path");
 
 // const postModel = require("./models/post");
 
 const cookieParser = require("cookie-parser");
-// const multer = require("multer");
+const multer = require("multer");
 
 app.set("view engine", "ejs");
+
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(router);
 
-// app.get("/login", (req, res) => {
-//   res.render("login");
-// });
-// app.get("/logout", async (req, res) => {
-//   try {
-//     res.clearCookie("token");
-//     res.redirect("/login");
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
-// app.get("/blogs", isLogedin, async (req, res) => {
-//   const user = await userModel.findOne({ email: req.user.email }).populate("posts");
-//   res.render("blogs", { user });
-// });
 // app.get("/like/:id", isLogedin, async (req, res) => {
 //   const post = await postModel.findOne({ _id: req.params.id }).populate("user");
 
@@ -79,25 +67,6 @@ app.use(router);
 // app.get("/editPost/:id", isLogedin, async (req, res) => {
 //   const post = await postModel.findOne({ _id: req.params.id }).populate("user");
 //   res.render("edit", { post });
-// });
-
-// app.post("/login", async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-
-//     const user = await userModel.findOne({ email });
-//     if (!user) return res.status(400).send("User Not exist!");
-
-//     const result = bcrypt.compare(password, user.password);
-//     if (!result) return res.redirect("/login");
-
-//     res.status(200);
-//     const token = jwt.sign({ email, userid: user._id }, "abcdef", { expiresIn: "24h" });
-//     res.cookie("token", token);
-//     res.redirect("/blogs");
-//   } catch (err) {
-//     console.log(err);
-//   }
 // });
 
 // app.post("/post", isLogedin, async (req, res) => {

@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema({
   name: String,
   email: String,
   password: String,
+  image: String,
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "post" }],
 });
 

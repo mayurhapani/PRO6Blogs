@@ -1,10 +1,9 @@
-const userModel = require("../models/user.model");
-
 const userInput = (req, res, next) => {
   try {
     const { name, username, email, password } = req.body;
+    const image = req.file.path;
 
-    if (name && username && password && email) {
+    if (name && username && password && email && image) {
       next();
     } else {
       console.log("please fill all the inputs");

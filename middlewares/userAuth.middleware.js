@@ -1,6 +1,6 @@
 const userModel = require("../models/user.model");
 
-const isLogin = (req, res, next) => {
+const isLogin = async (req, res, next) => {
   try {
     // console.log("middleware");
 
@@ -8,8 +8,8 @@ const isLogin = (req, res, next) => {
       res.redirect("/login");
       return;
     }
-
-    const user = userModel.findOne({ _id: req.cookies.token });
+    // console.log(req.cookies.token);
+    const user = await userModel.findOne({ _id: req.cookies.token });
     if (user) {
       req.user = user;
       console.log("login successful (by middleware )");
