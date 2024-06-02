@@ -12,13 +12,14 @@ const {
   loginAuth,
   logout,
 } = require("../controllers/user.controller");
+const { imageUpload } = require("../middlewares/fileUpload.middleware");
 
 router.get("/", isLogin, myBlogs);
 router.get("/addUser", addUser);
 router.get("/login", login);
 router.get("/logout", logout);
 
-router.post("/addUser", userInput, addUserPage);
+router.post("/addUser", imageUpload, userInput, addUserPage);
 router.post("/login", loginAuth);
 
 module.exports = { router };

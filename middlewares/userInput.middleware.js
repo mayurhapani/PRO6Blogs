@@ -1,4 +1,4 @@
-const userInput = (req, res, next) => {
+const userInput = async (req, res, next) => {
   try {
     const { name, username, email, password } = req.body;
     const image = req.file.path;
