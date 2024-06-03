@@ -80,6 +80,12 @@ const myblogs = async (req, res) => {
   res.render("myblogs", { user });
 };
 
+const deleteuser = async (req, res) => {
+  const id = req.user.id;
+  await userModel.findOneAndDelete({ _id: id });
+  res.redirect("/login");
+};
+
 module.exports = {
   allBlogs,
   addUser,
@@ -90,4 +96,5 @@ module.exports = {
   myblogs,
   edituser,
   editUserPage,
+  deleteuser,
 };

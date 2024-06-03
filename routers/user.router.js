@@ -15,6 +15,7 @@ const {
   editUserPage,
   allBlogs,
   myblogs,
+  deleteuser,
 } = require("../controllers/user.controller");
 const { addPost } = require("../controllers/post.controller");
 
@@ -24,6 +25,7 @@ router.get("/logout", logout);
 router.get("/edituser", isLogin, edituser);
 router.get("/", isLogin, allBlogs);
 router.get("/myblogs", isLogin, myblogs);
+router.get("/deleteUser", isLogin, deleteuser);
 
 router.post("/addUser", imageUpload, userInput, addUserPage);
 router.post("/login", loginAuth);
