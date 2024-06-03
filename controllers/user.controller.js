@@ -82,6 +82,7 @@ const myblogs = async (req, res) => {
 
 const deleteuser = async (req, res) => {
   const id = req.user.id;
+  fs.unlinkSync(req.user.image);
   await userModel.findOneAndDelete({ _id: id });
   res.redirect("/login");
 };
