@@ -1,9 +1,9 @@
 const userInput = async (req, res, next) => {
   try {
+    console.log(req.file);
     const { name, username, email, password } = req.body;
-    const image = req.file.path;
 
-    if (name && username && password && email && image) {
+    if (name && username && password && email) {
       next();
     } else {
       console.log("please fill all the inputs");

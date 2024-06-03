@@ -1,6 +1,6 @@
 const userModel = require("../models/user.model");
 
-const myBlogs = async (req, res) => {
+const allBlogs = async (req, res) => {
   const user = req.user;
   res.render("index", { user });
 };
@@ -51,4 +51,41 @@ const logout = async (req, res) => {
   res.redirect("/login");
 };
 
-module.exports = { myBlogs, addUser, addUserPage, login, loginAuth, logout };
+const edituser = async (req, res) => {
+  const user = req.user;
+  res.render("edituser", { user });
+};
+
+const editUserPage = async (req, res) => {
+  try {
+    const { name, username, email, password } = req.body;
+    const id = req.user._id;
+    let image = req.user.image;
+
+    if (req.file) {
+      image = req.file.path;
+    }
+    await userModel.findOneAndUpdate({ _id: id }, { name, username, email, password, image });
+
+    res.redirect("/myblogs");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const myblogs = async (req, res) => {
+  const user = req.user;
+  res.render("myblogs", { user });
+};
+
+module.exports = {
+  allBlogs,
+  addUser,
+  addUserPage,
+  login,
+  loginAuth,
+  logout,
+  myblogs,
+  edituser,
+  editUserPage,
+};
