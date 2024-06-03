@@ -1,4 +1,5 @@
 const userModel = require("../models/user.model");
+const fs = require("fs");
 
 const allBlogs = async (req, res) => {
   const user = req.user;
@@ -63,6 +64,7 @@ const editUserPage = async (req, res) => {
     let image = req.user.image;
 
     if (req.file) {
+      fs.unlinkSync(req.user.image);
       image = req.file.path;
     }
     await userModel.findOneAndUpdate({ _id: id }, { name, username, email, password, image });
