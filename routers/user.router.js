@@ -17,7 +17,7 @@ const {
   myblogs,
   deleteuser,
 } = require("../controllers/user.controller");
-const { addPost } = require("../controllers/post.controller");
+
 
 router.get("/addUser", addUser);
 router.get("/login", login);
@@ -31,6 +31,6 @@ router.post("/addUser", imageUpload, userInput, addUserPage);
 router.post("/login", loginAuth);
 router.post("/editeduser", isLogin, imageUpload, userInput, editUserPage);
 
-router.post("/addPost", isLogin, addPost);
+
 
 module.exports = { router };

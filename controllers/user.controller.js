@@ -1,9 +1,16 @@
+const postModel = require("../models/post.model");
 const userModel = require("../models/user.model");
 const fs = require("fs");
 
 const allBlogs = async (req, res) => {
-  const user = req.user;
-  res.render("index", { user });
+  try {
+    const user = req.user;
+    const posts = await postModel.find({});
+
+    res.render("index", { user, posts });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const addUser = async (req, res) => {
@@ -48,8 +55,12 @@ const loginAuth = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  res.clearCookie("token");
-  res.redirect("/login");
+  try {
+    res.clearCookie("token");
+    res.redirect("/login");
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const edituser = async (req, res) => {
@@ -76,15 +87,26 @@ const editUserPage = async (req, res) => {
 };
 
 const myblogs = async (req, res) => {
-  const user = req.user;
-  res.render("myblogs", { user });
+  try {
+    const user = req.user;
+    const myPosts = await postModel.find({ user: user._id });
+
+    res.render("myblogs", { user, myPosts });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const deleteuser = async (req, res) => {
-  const id = req.user.id;
-  fs.unlinkSync(req.user.image);
-  await userModel.findOneAndDelete({ _id: id });
-  res.redirect("/login");
+  try {
+    const id = req.user.id;
+    fs.unlinkSync(req.user.image);
+
+    await userModel.findOneAndDelete({ _id: id });
+    res.redirect("/login");
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {

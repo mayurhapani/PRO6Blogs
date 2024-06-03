@@ -34,7 +34,21 @@
         <h3 class="text-zinc-400 text-xl mb-5">Your Posts</h3>
 
         <div class="postcontainer">
+          <% myPosts.reverse().map(post=>{ %>
           <div class="card border-2 border-zinc-600 rounded-md p-3 mb-2 bg-zinc-800 w-2/3">
+            <h4 class="text-zinc-300 mb-1">@ <%= user.name %></h4>
+            <p class="text-zinc-500 text-sm"><%= post.content %></p>
+            <small class="text-white inline-block mt-5 mb-2"> <%= post.likes.length %> likes</small>
+            <div class="">
+              <a class="text-blue-500 me-5" href="/likePost/<%= post._id %>?mypath=myblogs">
+                <%= post.likes.indexOf(user._id )===-1 ? "Like" : "Unlike" %>
+              </a>
+              <a class="text-zinc-500 me-5" href="/editPost/<%= post._id %>">Edit</a>
+              <a class="text-red-500" href="/deletePost/<%= post._id %>">delete</a>
+            </div>
+          </div>
+
+          <!-- <div class="card border-2 border-zinc-600 rounded-md p-3 mb-2 bg-zinc-800 w-2/3">
             <h4 class="text-zinc-300 mb-2">@ mayur hapani</h4>
             <p class="text-zinc-500">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt non, ipsum
@@ -49,7 +63,9 @@
               <a class="text-zinc-500 me-5" href="/editPost">Edit</a>
               <a class="text-red-500" href="/delete">delete</a>
             </div>
-          </div>
+          </div> -->
+
+          <% }) %>
         </div>
       </div>
     </div>

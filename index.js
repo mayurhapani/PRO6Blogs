@@ -4,9 +4,7 @@ port = 8001;
 
 const db = require("./config/database");
 const { router } = require("./routers/user.router");
-const path = require("path");
-
-// const postModel = require("./models/post");
+const { postRouter } = require("./routers/post.router");
 
 const cookieParser = require("cookie-parser");
 
@@ -18,19 +16,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(router);
+app.use(postRouter);
 
-// app.get("/like/:id", isLogedin, async (req, res) => {
-//   const post = await postModel.findOne({ _id: req.params.id }).populate("user");
 
-//   if (post.likes.indexOf(req.user.userid) === -1) {
-//     post.likes.push(req.user.userid);
-//   } else {
-//     post.likes.splice(post.likes.indexOf(req.user.userid), 1);
-//   }
-
-//   await post.save();
-//   res.redirect("/blogs");
-// });
 
 // app.get("/delete/:id", isLogedin, async (req, res) => {
 //   try {
@@ -63,6 +51,7 @@ app.use(router);
 //     res.status(500).send("Internal Server Error");
 //   }
 // });
+
 // app.get("/editPost/:id", isLogedin, async (req, res) => {
 //   const post = await postModel.findOne({ _id: req.params.id }).populate("user");
 //   res.render("edit", { post });
