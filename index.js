@@ -18,8 +18,6 @@ app.use(cookieParser());
 app.use(router);
 app.use(postRouter);
 
-
-
 // app.get("/delete/:id", isLogedin, async (req, res) => {
 //   try {
 //     const postId = req.params.id;

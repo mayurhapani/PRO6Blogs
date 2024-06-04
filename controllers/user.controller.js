@@ -5,8 +5,8 @@ const fs = require("fs");
 const allBlogs = async (req, res) => {
   try {
     const user = req.user;
-    const posts = await postModel.find({});
-
+    const posts = await postModel.find({}).populate("user");
+    // console.log(posts);
     res.render("index", { user, posts });
   } catch (error) {
     console.log(error);
