@@ -65,7 +65,15 @@ const editPost = async (req, res) => {
 const editPostPage = async (req, res) => {
   try {
     const { title, content } = req.body;
-    const image = req.file.path;
+    const post = await postModel.findOne({ _id: req.params.id });
+    let image = post.image;
+
+    if (req.file) {
+      if (post.image) {
+        fs.unlinkSync(post.image);
+      }
+      image = req.file.path;
+    }
 
     await postModel.findOneAndUpdate({ _id: req.params.id }, { title, content, image });
     res.redirect("/myblogs");
@@ -83,13 +91,15 @@ const deletePost = async (req, res) => {
       return res.status(403).send("Unauthorized");
     }
 
-    let subImagePath = post.image.replace(/\\/g, "/");
-    if (subImagePath.startsWith("public/")) {
-      subImagePath = subImagePath.substring("public/".length);
+    if (post.image) {
+      let subImagePath = post.image.replace(/\\/g, "/");
+      if (subImagePath.startsWith("public/")) {
+        subImagePath = subImagePath.substring("public/".length);
+      }
+      const imagePath = path.join(__dirname, "..", "public", subImagePath);
+      fs.unlinkSync(imagePath);
     }
-    const imagePath = path.join(__dirname, "..", "public", subImagePath);
 
-    fs.unlinkSync(imagePath);
     await postModel.findByIdAndDelete(postId);
     res.redirect("/myblogs");
   } catch (err) {

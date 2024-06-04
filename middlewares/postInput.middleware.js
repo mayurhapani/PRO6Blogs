@@ -1,3 +1,5 @@
+const { postInputError } = require("../public/javascripts/postInput");
+
 const postInput = async (req, res, next) => {
   try {
     const { title, content } = req.body;
@@ -5,6 +7,7 @@ const postInput = async (req, res, next) => {
     if (title && content) {
       next();
     } else {
+      // postInputError();
       console.log("please fill all the inputs");
 
       res.redirect("/myblogs");
