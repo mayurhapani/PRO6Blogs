@@ -1,6 +1,7 @@
 const postModel = require("../models/post.model");
 const userModel = require("../models/user.model");
 const fs = require("fs");
+const path = require("path");
 
 const allBlogs = async (req, res) => {
   try {
@@ -100,8 +101,18 @@ const myblogs = async (req, res) => {
 const deleteuser = async (req, res) => {
   try {
     const id = req.user.id;
-    fs.unlinkSync(req.user.image);
 
+    let subImagePath = req.user.image.replace(/\\/g, "/");
+    if (subImagePath.startsWith("public/")) {
+      subImagePath = subImagePath.substring("public/".length);
+    }
+    const imagePath = path.join(__dirname, "..", "public", subImagePath);
+
+    console.log(`Image path: ${imagePath}`);
+
+    fs.unlinkSync(imagePath);
+
+    await postModel.deleteMany({ user: id });
     await userModel.findOneAndDelete({ _id: id });
     res.redirect("/login");
   } catch (error) {

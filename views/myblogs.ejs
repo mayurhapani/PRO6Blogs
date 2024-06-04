@@ -9,65 +9,52 @@
   <body>
     <%- include('./partials/header') %>
 
-    <header class="flex justify-end"></header>
+    <main class="flex flex-row">
+      <%- include('./partials/aside') %>
 
-    <div class="bg-zinc-900 min-h-screen w-full p-10">
-      <div class="flex justify-start items-center mb-10">
-        <img class="inline-block h-20 w-20 rounded-full" src="/<%= user.image %> " alt="image" />
-        <h2 class="text-white text-4xl font-bold ms-10">Hello, <%= user.name %> !</h2>
-      </div>
+      <div class="basis-9/12 bg-zinc-900 min-h-screen w-full p-10">
+        <div class="flex justify-start items-center mb-10">
+          <img class="inline-block h-20 w-20 rounded-full" src="/<%= user.image %> " alt="image" />
+          <h2 class="text-white text-4xl font-bold ms-10">Hello, <%= user.name %> !</h2>
+        </div>
 
-      <form action="/addPost" method="post">
-        <textarea
-          class="resize-none bg-transparent p-3 w-1/3 outline-none border-2 border-zinc-600 rounded-lg text-white"
-          name="content"
-          placeholder="whats in your mind!"
-        ></textarea>
-        <input
-          class="bg-blue-500 p-3 rounded-lg w-40 mt-3 text-white block"
-          type="submit"
-          value="Create New Post"
-        />
-      </form>
+        <form action="/addPost" method="post">
+          <textarea
+            class="resize-none bg-transparent p-3 w-1/3 outline-none border-2 border-zinc-600 rounded-lg text-white"
+            name="content"
+            placeholder="whats in your mind!"
+          ></textarea>
+          <input
+            class="bg-blue-500 p-3 rounded-lg w-40 mt-3 text-white block"
+            type="submit"
+            value="Create New Post"
+          />
+        </form>
 
-      <div class="mt-20">
-        <h3 class="text-zinc-400 text-xl mb-5">Your Posts</h3>
+        <div class="mt-20">
+          <h3 class="text-zinc-400 text-xl mb-5">Your Posts</h3>
 
-        <div class="postcontainer">
-          <% myPosts.reverse().map(post=>{ %>
-          <div class="card border-2 border-zinc-600 rounded-md p-3 mb-2 bg-zinc-800 w-2/3">
-            <h4 class="text-zinc-300 mb-1">@ <%= user.name %></h4>
-            <p class="text-zinc-500 text-sm"><%= post.content %></p>
-            <small class="text-white inline-block mt-5 mb-2"> <%= post.likes.length %> likes</small>
-            <div class="">
-              <a class="text-blue-500 me-5" href="/likePost/<%= post._id %>?mypath=myblogs">
-                <%= post.likes.indexOf(user._id )===-1 ? "Like" : "Unlike" %>
-              </a>
-              <a class="text-zinc-500 me-5" href="/editPost/<%= post._id %>">Edit</a>
-              <a class="text-red-500" href="/deletePost/<%= post._id %>">delete</a>
+          <div class="postcontainer">
+            <% myPosts.reverse().map(post=>{ %>
+            <div class="card border-2 border-zinc-600 rounded-md p-3 mb-2 bg-zinc-800 w-2/3">
+              <h4 class="text-zinc-300 mb-1">@ <%= user.name %></h4>
+              <p class="text-zinc-500 text-sm"><%= post.content %></p>
+              <small class="text-white inline-block mt-5 mb-2">
+                <%= post.likes.length %> likes</small
+              >
+              <div class="">
+                <a class="text-blue-500 me-5" href="/likePost/<%= post._id %>?mypath=myblogs">
+                  <%= post.likes.indexOf(user._id )===-1 ? "Like" : "Unlike" %>
+                </a>
+                <a class="text-zinc-500 me-5" href="/editPost/<%= post._id %>">Edit</a>
+                <a class="text-red-500" href="/deletePost/<%= post._id %>">delete</a>
+              </div>
             </div>
+
+            <% }) %>
           </div>
-
-          <!-- <div class="card border-2 border-zinc-600 rounded-md p-3 mb-2 bg-zinc-800 w-2/3">
-            <h4 class="text-zinc-300 mb-2">@ mayur hapani</h4>
-            <p class="text-zinc-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt non, ipsum
-              cupiditate aperiam quidem, harum nesciunt iure dolorum nihil veniam maxime dicta
-              voluptas autem iste. Veniam facilis adipisci repudiandae at quidem labore voluptates
-              possimus saepe aliquid, aliquam modi pariatur nobis tenetur magni aspernatur porro
-              inventore aut omnis accusantium itaque exercitationem.
-            </p>
-            <small class="text-white inline-block mt-5 mb-2"> 0 likes</small>
-            <div class="">
-              <a class="text-blue-500 me-5" href="/like">Like </a>
-              <a class="text-zinc-500 me-5" href="/editPost">Edit</a>
-              <a class="text-red-500" href="/delete">delete</a>
-            </div>
-          </div> -->
-
-          <% }) %>
         </div>
       </div>
-    </div>
+    </main>
   </body>
 </html>

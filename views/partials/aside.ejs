@@ -1,0 +1,38 @@
+<div class="basis-3/12 bg-zinc-800 p-10">
+  <h2 class="text-center text-white text-4xl mb-10 font-bold">Deshbord</h2>
+  <ul>
+    <li>
+      <a
+        class="text-zinc-400 text-xl py-3 px-5 rounded-md mb-3 w-full inline-block bg-zinc-700 hover:bg-zinc-600"
+        href="/edituser"
+        >Edit User</a
+      >
+    </li>
+    <li>
+      <a
+        class="text-zinc-400 text-xl py-3 px-5 rounded-md mb-3 w-full inline-block bg-red-700 hover:bg-red-600"
+        onclick="confirmDelete(event)"
+        href="/deleteUser"
+        >Delete Account</a
+      >
+    </li>
+    <li>
+      <a
+        class="text-white text-xl py-3 px-5 rounded-md mb-3 w-full inline-block bg-red-400 hover:bg-red-500"
+        href="/logout"
+        >Logout</a
+      >
+    </li>
+  </ul>
+</div>
+
+<script>
+  function confirmDelete(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    const userConfirmed = confirm("Are you sure you want to delete your account?");
+    if (userConfirmed) {
+      // Redirect to the delete user route
+      window.location.href = event.currentTarget.href;
+    }
+  }
+</script>
