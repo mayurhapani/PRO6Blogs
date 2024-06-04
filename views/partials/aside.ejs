@@ -4,6 +4,13 @@
     <li>
       <a
         class="text-zinc-400 text-xl py-3 px-5 rounded-md mb-3 w-full inline-block bg-zinc-700 hover:bg-zinc-600"
+        href="/addpostpage"
+        >Add Post</a
+      >
+    </li>
+    <li>
+      <a
+        class="text-zinc-400 text-xl py-3 px-5 rounded-md mb-3 w-full inline-block bg-zinc-700 hover:bg-zinc-600"
         href="/edituser"
         >Edit User</a
       >
@@ -26,13 +33,4 @@
   </ul>
 </div>
 
-<script>
-  function confirmDelete(event) {
-    event.preventDefault(); // Prevent the default link behavior
-    const userConfirmed = confirm("Are you sure you want to delete your account?");
-    if (userConfirmed) {
-      // Redirect to the delete user route
-      window.location.href = event.currentTarget.href;
-    }
-  }
-</script>
+<script src="../../public/javascripts/deleteuser.js"></script>

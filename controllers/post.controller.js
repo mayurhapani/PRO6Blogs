@@ -1,9 +1,30 @@
 const postModel = require("../models/post.model");
+const fs = require("fs");
+const path = require("path");
+
+const myPost = async (req, res) => {
+  try {
+    res.render("myblogs");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const addPost = async (req, res) => {
   try {
-    const { content } = req.body;
-    const post = postModel.create({ content, user: req.user._id });
+    const user = req.user;
+    res.render("addpost", { user });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const addPostpage = async (req, res) => {
+  try {
+    const { title, content } = req.body;
+    const image = req.file.path;
+
+    const post = postModel.create({ title, content, image, user: req.user._id });
 
     res.redirect("/myblogs");
   } catch (error) {
@@ -43,9 +64,10 @@ const editPost = async (req, res) => {
 
 const editPostPage = async (req, res) => {
   try {
-    const { content } = req.body;
+    const { title, content } = req.body;
+    const image = req.file.path;
 
-    await postModel.findOneAndUpdate({ _id: req.params.id }, { content });
+    await postModel.findOneAndUpdate({ _id: req.params.id }, { title, content, image });
     res.redirect("/myblogs");
   } catch (error) {
     console.log(error);
@@ -61,6 +83,15 @@ const deletePost = async (req, res) => {
       return res.status(403).send("Unauthorized");
     }
 
+    let subImagePath = req.post.image.replace(/\\/g, "/");
+    if (subImagePath.startsWith("public/")) {
+      subImagePath = subImagePath.substring("public/".length);
+    }
+    const imagePath = path.join(__dirname, "..", "public", subImagePath);
+
+    console.log(`Image path: ${imagePath}`);
+
+    fs.unlinkSync(imagePath);
     await postModel.findByIdAndDelete(postId);
     res.redirect("/myblogs");
   } catch (err) {
@@ -69,4 +100,4 @@ const deletePost = async (req, res) => {
   }
 };
 
-module.exports = { addPost, likePost, editPost, editPostPage, deletePost };
+module.exports = { myPost, likePost, editPost, editPostPage, deletePost, addPost, addPostpage };

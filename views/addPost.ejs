@@ -18,7 +18,7 @@
           <h2 class="text-white text-4xl font-bold ms-10">Hello, <%= user.name %> !</h2>
         </div>
 
-        <!-- <form action="/addPost" method="post" enctype="multipart/form-data">
+        <form action="/addpostpage" method="post" enctype="multipart/form-data">
           <input
             class="bg-transparent p-3 w-2/3 outline-none border-2 border-zinc-600 rounded-lg text-white block mb-3"
             name="title"
@@ -54,35 +54,7 @@
             type="submit"
             value="Create New Post"
           />
-        </form> -->
-
-        <div class="mt-20">
-          <h3 class="text-zinc-400 text-xl mb-5">Your Posts</h3>
-
-          <div class="postcontainer">
-            <% myPosts.reverse().map(post=>{ %>
-            <div class="card border-2 border-zinc-600 rounded-md p-3 mb-2 bg-zinc-800 w-2/3">
-              <img class="inline-block w-full h-80" src="<%= post.image %>" alt="img" />
-              <div class="flex justify-between item-center">
-                <h2 class="text-zinc-300 mb-1 text-xl">Title : <%= post.title %></h2>
-                <h4 class="text-zinc-500 mb-1 text-sm">@ <%= user.name %></h4>
-              </div>
-              <p class="text-zinc-400 text-sm"><%= post.content %></p>
-              <small class="text-white inline-block mt-5 mb-2">
-                <%= post.likes.length %> likes</small
-              >
-              <div class="">
-                <a class="text-blue-500 me-5" href="/likePost/<%= post._id %>?mypath=myblogs">
-                  <%= post.likes.indexOf(user._id )===-1 ? "Like" : "Unlike" %>
-                </a>
-                <a class="text-zinc-500 me-5" href="/editPost/<%= post._id %>">Edit</a>
-                <a class="text-red-500" href="/deletePost/<%= post._id %>">delete</a>
-              </div>
-            </div>
-
-            <% }) %>
-          </div>
-        </div>
+        </form>
       </div>
     </main>
   </body>

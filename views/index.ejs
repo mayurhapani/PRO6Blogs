@@ -24,8 +24,12 @@
           <% posts.reverse( ).map(post=>{ %>
 
           <div class="card border-2 border-zinc-600 rounded-md p-3 mb-2 bg-zinc-800 w-2/3">
-            <h4 class="text-zinc-300 mb-1">@ <%= post.user.name %></h4>
-            <p class="text-zinc-500 text-sm"><%= post.content %></p>
+            <img class="inline-block w-full h-80" src="<%= post.image %>" alt="img" />
+            <div class="flex justify-between item-center">
+              <h2 class="text-zinc-300 mb-1 text-xl">Title : <%= post.title %></h2>
+              <h4 class="text-zinc-500 mb-1 text-sm">@ <%= post.user.name %></h4>
+            </div>
+            <p class="text-zinc-400 text-sm"><%= post.content %></p>
             <small class="text-white inline-block mt-5 mb-2"> <%= post.likes.length %> likes</small>
             <div class="">
               <a class="text-blue-500 me-5" href="/likePost/<%= post._id %>">
