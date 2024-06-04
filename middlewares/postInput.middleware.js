@@ -1,4 +1,5 @@
-const { postInputError } = require("../public/javascripts/postInput");
+const express = require("express");
+const postInputError = require("../public/javascripts/postInput");
 
 const postInput = async (req, res, next) => {
   try {

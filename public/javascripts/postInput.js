@@ -6,4 +6,4 @@ const postInputError = (event) => {
   }
 };
 
-module.exports = { postInputError };
+module.exports = postInputError;
