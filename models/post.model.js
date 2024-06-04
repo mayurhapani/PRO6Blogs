@@ -9,7 +9,9 @@ const postSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  title: String,
   content: String,
+  postImage: String,
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,
