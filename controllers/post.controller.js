@@ -83,13 +83,11 @@ const deletePost = async (req, res) => {
       return res.status(403).send("Unauthorized");
     }
 
-    let subImagePath = req.post.image.replace(/\\/g, "/");
+    let subImagePath = post.image.replace(/\\/g, "/");
     if (subImagePath.startsWith("public/")) {
       subImagePath = subImagePath.substring("public/".length);
     }
     const imagePath = path.join(__dirname, "..", "public", subImagePath);
-
-    console.log(`Image path: ${imagePath}`);
 
     fs.unlinkSync(imagePath);
     await postModel.findByIdAndDelete(postId);

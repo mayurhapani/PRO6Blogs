@@ -108,8 +108,6 @@ const deleteuser = async (req, res) => {
     }
     const imagePath = path.join(__dirname, "..", "public", subImagePath);
 
-    console.log(`Image path: ${imagePath}`);
-
     fs.unlinkSync(imagePath);
 
     await postModel.deleteMany({ user: id });
