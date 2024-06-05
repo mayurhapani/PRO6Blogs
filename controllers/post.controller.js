@@ -69,9 +69,8 @@ const editPostPage = async (req, res) => {
     let image = post.image;
 
     if (req.file) {
-      if (post.image) {
-        fs.unlinkSync(post.image);
-      }
+      fs.unlinkSync(post.image);
+
       image = req.file.path;
     }
 
